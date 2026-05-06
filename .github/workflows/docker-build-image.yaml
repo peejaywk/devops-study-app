@@ -17,13 +17,14 @@ jobs:
 
       - name: Build image from Dockerfile
         run: |
-          docker build -t backend .
+          docker build -t backend-app:latest .
 
-      - name: Run Trivvy vilnerability scanner
+      - name: Run Trivvy vulnerability scanner
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          image-ref: 'backend'
+          image-ref: 'backend-app:latest'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
+          vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
